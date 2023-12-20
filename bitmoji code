@@ -1,0 +1,120 @@
+var score = 0;
+var currentScene = 0;
+var player1Score = 0;
+var player2Score = 0;
+
+var bitmojiHead = function(bitmojiX,bitmojiY,bitmojiHeight) {
+    
+fill(227, 178, 129);
+ellipse(bitmojiX+(bitmojiHeight/150*69),bitmojiY+(bitmojiHeight/150*78), bitmojiHeight/150*64, bitmojiHeight/150*100); //face
+fill(94,72,30);
+ellipse(bitmojiX+(bitmojiHeight/150*55),bitmojiY+(bitmojiHeight/150*70),bitmojiHeight/150*13,bitmojiHeight/150*12); //left eye
+ellipse(bitmojiX+(bitmojiHeight/150*82),bitmojiY+(bitmojiHeight/150*70),bitmojiHeight/150*13,bitmojiHeight/150*12); //right eye
+fill(255,255,255);
+arc(bitmojiX+(bitmojiHeight/150*67),bitmojiY+(bitmojiHeight/150*100),bitmojiHeight/150*34,bitmojiHeight/150*8,-22,235); //mouth
+fill(0, 0, 0);
+
+fill(64, 51, 38);
+ellipse(bitmojiX+(bitmojiHeight/150*39),bitmojiY+(bitmojiHeight/150*45),bitmojiHeight/150*18,bitmojiHeight/150*18); //curly hair
+ellipse(bitmojiX+(bitmojiHeight/150*49),bitmojiY+(bitmojiHeight/150*40),bitmojiHeight/150*18,bitmojiHeight/150*18);
+ellipse(bitmojiX+(bitmojiHeight/150*59),bitmojiY+(bitmojiHeight/150*35),bitmojiHeight/150*18,bitmojiHeight/150*18);
+ellipse(bitmojiX+(bitmojiHeight/150*66),bitmojiY+(bitmojiHeight/150*34),bitmojiHeight/150*18,bitmojiHeight/150*18);
+ellipse(bitmojiX+(bitmojiHeight/150*79),bitmojiY+(bitmojiHeight/150*35),bitmojiHeight/150*18,bitmojiHeight/150*18);
+ellipse(bitmojiX+(bitmojiHeight/150*89),bitmojiY+(bitmojiHeight/150*40),bitmojiHeight/150*18,bitmojiHeight/150*18);
+ellipse(bitmojiX+(bitmojiHeight/150*99),bitmojiY+(bitmojiHeight/150*45),bitmojiHeight/150*18,bitmojiHeight/150*18);
+
+line(bitmojiX+(bitmojiHeight/150*69),bitmojiY+(bitmojiHeight/150*83),bitmojiX+(bitmojiHeight/150*75),bitmojiY+(bitmojiHeight/150*89)); //nose
+line(bitmojiX+(bitmojiHeight/150*69),bitmojiY+(bitmojiHeight/150*89),bitmojiX+(bitmojiHeight/150*75),bitmojiY+(bitmojiHeight/150*89));
+
+};
+
+var bitmojiBody = function(bitmojiX,bitmojiY,bitmojiHeight) {
+    
+fill(194, 170, 170);
+rect(bitmojiX+(bitmojiHeight/150*18),bitmojiY+(bitmojiHeight/150*125),bitmojiHeight/150*100,bitmojiHeight/150*50,200); //shirt
+fill(0, 0, 0);
+fill(0, 0, 0);
+textSize(38);
+text("EA",bitmojiX+(bitmojiHeight/150*43),bitmojiY+(bitmojiHeight/150*136), bitmojiHeight/150*50, bitmojiHeight/150*50); //shirt text
+
+};
+
+var drawBitmoji = function(bitmojiX,bitmojiY,bitmojiHeight) {
+    
+    
+    bitmojiHead(bitmojiX,bitmojiY,bitmojiHeight);
+
+};
+
+var y = 150;
+var andresHeight = 113;
+
+var drawHead = function(x, y, andresHeight) {
+  noStroke();
+  var headWidth = 85 * (andresHeight / 150);
+  var headHeight = 100 * (andresHeight / 149);
+  fill(230, 202, 172); // Fill to skin tone
+  ellipse(x, y, headWidth, headHeight); // Head
+  fill(156, 113, 87); // Brown hair
+  var hairLeftX = x - (56 * (andresHeight / 203));
+  var hairLeftY = y - (36 * (andresHeight / 147));
+  var hairRightX = x + (43 * (andresHeight / 150));
+  var hairRightY = y - (36 * (andresHeight / 150));
+  quad(hairLeftX, y, hairLeftX + (41 * (andresHeight / 138)), hairLeftY, hairLeftX + (29 * (andresHeight / 206)), hairLeftY - (10 * (andresHeight / 154)), hairLeftX - (23 * (andresHeight / 150)), y - (9 * (andresHeight / 150))); // Left
+  quad(hairRightX, y - (2 * (andresHeight / 150)), hairRightX - (44 * (andresHeight / 150)), hairRightY, hairRightX - (36 * (andresHeight / 157)), hairRightY - (16 * (andresHeight / 150)), hairRightX + (20 * (andresHeight / 157)), y - (11 * (andresHeight / 150))); // Right
+  var topHairWidth = 73 * (andresHeight / 150);
+  var topHairHeight = 31 * (andresHeight / 150);
+  ellipse(x, y - (37 * (andresHeight / 150)), topHairWidth, topHairHeight); // Top hair
+  stroke(0, 0, 0);
+  fill(230, 202, 172);
+  var eyeWhiteWidth = 19 * (andresHeight / 150);
+  var eyeWhiteHeight = 14 * (andresHeight / 150);
+  ellipse(x - (11 * (andresHeight / 150)), y, eyeWhiteWidth, eyeWhiteHeight);
+  ellipse(x + (14 * (andresHeight / 150)), y, eyeWhiteWidth, eyeWhiteHeight);
+  line(x - (1 * (andresHeight / 150)), y - (2 * (andresHeight / 150)), x + (3 * (andresHeight / 150)), y - (2 * (andresHeight / 150)));
+  line(x - (39 * (andresHeight / 150)), y - (2 * (andresHeight / 150)), x - (21 * (andresHeight / 150)), y - (2 * (andresHeight / 150)));
+  line(x + (24 * (andresHeight / 150)), y - (2 * (andresHeight / 150)), x + (39 * (andresHeight / 150)), y - (2 * (andresHeight / 150)));
+  fill(115, 23, 23); // Brown eyes fill
+  var eyeSize = 6 * (andresHeight / 150);
+  ellipse(x - (10 * (andresHeight / 150)), y, eyeSize, eyeSize); // Left eye
+  ellipse(x + (17 * (andresHeight / 150)), y, eyeSize, eyeSize); // Right eye
+  fill(230, 202, 172); // Fill to skin tone
+  bezier(x, y, x + (21 * (andresHeight / 150)), y + (22 * (andresHeight / 150)), x - (8 * (andresHeight / 150)), y + (20 * (andresHeight / 150)), x - (4 * (andresHeight / 150)), y + (15 * (andresHeight / 150)));
+  fill(255, 255, 255); // Teeth
+  var teethWidth = 30 * (andresHeight / 150);
+  var teethHeight = 13 * (andresHeight / 150);
+  arc(x + (3 * (andresHeight / 150)), y + (25 * (andresHeight / 150)), teethWidth, teethHeight, 1, 180);
+  line(x - (14 * (andresHeight / 150)), y + (25 * (andresHeight / 150)), x + (19 * (andresHeight / 150)), y + (24 * (andresHeight / 150)));
+};
+var drawBody = function(x, y, andresHeight) {
+  noStroke();
+  var bodyWidth = 100 * (andresHeight / 150);
+  var bodyHeight = 50 * (andresHeight / 150);
+  fill(255, 0, 0);
+  rect(x - (bodyWidth / 2), y + (40 * (andresHeight / 150)), bodyWidth, bodyHeight, 21);
+  fill(12, 232, 214);
+  var ellipseSize = 21 * (andresHeight / 150);
+  ellipse(x + (32 * (andresHeight / 150)), y + (57 * (andresHeight / 150)), ellipseSize, ellipseSize);
+  fill(12, 232, 214);
+  triangle(
+    x - (23 * (andresHeight / 150)),
+    y + (63 * (andresHeight / 150)),
+    x - (35 * (andresHeight / 150)),
+    y + (48 * (andresHeight / 150)),
+    x - (45 * (andresHeight / 150)),
+    y + (63 * (andresHeight / 150))
+  );
+
+  stroke(8, 8, 8);
+  strokeWeight(2);
+  line(x - (16 * (andresHeight / 150)), y + (82 * (andresHeight / 150)), x - (10 * (andresHeight / 150)), y + (66 * (andresHeight / 150))); // A
+  line(x - (4 * (andresHeight / 150)), y + (82 * (andresHeight / 150)), x - (8 * (andresHeight / 150)), y + (66 * (andresHeight / 150))); // A
+  line(x - (6 * (andresHeight / 150)), y + (74 * (andresHeight / 150)), x - (13 * (andresHeight / 150)), y + (77 * (andresHeight / 150))); // A
+  line(x + (6 * (andresHeight / 150)), y + (83 * (andresHeight / 150)), x + (6 * (andresHeight / 150)), y + (66 * (andresHeight / 150))); // H
+  line(x + (18 * (andresHeight / 150)), y + (67 * (andresHeight / 150)), x + (18 * (andresHeight / 150)), y + (83 * (andresHeight / 150))); // H
+  line(x + (16 * (andresHeight / 150)), y + (74 * (andresHeight / 150)), x + (7 * (andresHeight / 150)), y + (74 * (andresHeight / 150))); // H
+};
+
+var drawHenao = function(x, y, andresHeight) {
+  drawHead(x, y, andresHeight);
+};
