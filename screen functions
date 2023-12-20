@@ -1,0 +1,32 @@
+var drawIntroScreen = function()
+{
+    background(6, 184, 142);
+    currentScene = 0;
+    textSize(40);
+    text("Air Soccer",103,74);
+    textSize(22);
+    text("By: Evan Aramayo & Andres Henao", 24 ,154);
+    textSize(15);
+    text("Be a keeper and save the ball!", 79, 225); 
+    btn1.draw();
+    
+    
+};
+
+var drawEndScreen = function(){
+    currentScene = 2;
+    background(222, 37, 37);
+ textSize(35);
+    text("GAME OVER!!!!", 104,166);
+    text("CLICK RESTART",95,200);
+  
+};
+
+var drawGameScreen = function() {
+   
+    var player1X = 0;
+    var player1Y = height/2;
+    var player2Y = height/2;
+    var ball;
+    var gameStarted = false;
+    var a = 0;
