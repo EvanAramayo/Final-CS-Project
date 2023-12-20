@@ -1,0 +1,188 @@
+//Constants
+var STOP = 1;
+var keeperAgility = 2;
+var BALL_SPEED = 2.5;
+var PADDLE_HEIGHT = 100;
+var PADDLE_WIDTH = 20;
+
+angleMode = "degrees";
+
+var Ball = function(position, speed) {
+    this.position = position;
+    this.speed = speed || BALL_SPEED;
+    
+    this.radius = 12;
+    
+    this.resetVelocity = function() {
+        this.theta = random(0, 360);
+        this.velocity = new PVector(
+        this.speed*cos(this.theta), -this.speed*sin(this.theta));
+        player2Y = height/2;
+    };
+    this.resetVelocity();
+    
+    this.draw = function() {
+        fill(255, 255, 255);
+        noStroke();
+        ellipse(this.position.x, this.position.y,
+        this.radius*2, this.radius*2);
+    };
+    
+    this.collideWithPaddle = function(x, y) {
+        if (this.position.x - this.radius < x + PADDLE_WIDTH/2 &&
+        this.position.x + this.radius > x - PADDLE_WIDTH/2) {
+            if (dist(0, this.position.y, 0, y) <
+            PADDLE_HEIGHT/2 + this.radius) {
+                if (this.position.x > x) {
+                    this.position.x = x + 
+                    this.radius + PADDLE_WIDTH/2;
+                }
+                else if (this.position.x < x) {
+                    this.position.x = x - 
+                    this.radius - PADDLE_WIDTH/2;
+                }
+                this.velocity.mult(new PVector(-1, 1));
+            }
+        }
+    };
+    
+
+    this.update = function() {
+        //Handle wall collisions
+        if (this.position.x < 0) {
+            player2Score = player2Score + 1;
+            this.position = new PVector(width/2, height/2);
+            gameStarted = false;
+            this.resetVelocity();
+        }
+        else if (this.position.x > width) {
+            player1Score++;
+            this.position = new PVector(width/2, height/2);
+            gameStarted = false;
+            this.resetVelocity();
+        }
+        if (this.position.y < 0) {
+            this.position.y = 0;
+            this.velocity.mult(new PVector(1, -1));
+        }
+        else if (this.position.y > height) {
+            this.position.y = height;
+            this.velocity.mult(new PVector(1, -1));
+        }
+    
+        //Handle paddle collisions
+        this.collideWithPaddle(20, player1Y);
+        this.collideWithPaddle(width-20, player2Y);
+        
+        this.position.add(this.velocity);
+    };
+};
+
+ball = new Ball(new PVector(width/2, height/2));
+
+var drawScores = function() {
+    var g;
+    
+    fill(0, 17, 255);
+    textSize(20);
+    g = "GoalKeeper 1: " + player1Score;
+    text(g, width*0.25-textWidth(g)/2, 25);
+    fill(255, 0, 0);
+    g = "GoalKeeper 2: " + player2Score;
+    text(g, width*0.75-textWidth(g)/2, 25);
+};
+
+var updatePlayer2 = function() {
+    if (abs(player2Y-ball.position.y) < keeperAgility){
+        player2Y = ball.position.y;
+    }
+    else if (player2Y-ball.position.y >= keeperAgility) {
+        player2Y -= keeperAgility;
+    }
+    else if (player2Y-ball.position.y <= keeperAgility) {
+        player2Y += keeperAgility;
+    }
+    
+};
+
+
+var keeperSpawn = function() {
+    fill(255, 255, 255);
+    drawHenao(width-35, player2Y, 101, 145);
+};
+
+draw = function() {
+    //Draw the environment
+    background(0, 135, 11);
+    updatePlayer2();
+    drawScores();
+    drawBitmoji(mouseX, mouseY, 101, 145);
+    stroke(255, 255, 255);
+    line(width/10, 0, width/10, height);
+    line(width/1.1, 0, width/1.1, height);
+    stroke(255, 255, 255); // half way line
+    line(width/2, 0, width/2, height);
+    
+    //Draw the ball
+    ball.draw();
+    keeperSpawn();
+    if (!gameStarted) {
+        a++;
+        if (a >= STOP) {
+            a = 0;
+            gameStarted = true;
+            
+            //timer
+        }
+        return;
+    }
+    
+    //Move the player up
+var movePlayerUp = function() {
+    player1Y -= keeperAgility;
+};
+
+//Move the player down
+var movePlayerDown = function() {
+    player1Y += keeperAgility;
+};
+    
+    ball.update();
+    if (keyIsPressed) {
+        if (keyCode === DOWN) {
+            movePlayerDown();
+        }
+        else if (keyCode === UP) {
+            movePlayerUp();
+        }
+        else if (keyCode === RIGHT) {
+            player1X ++;
+        }
+        else if (keyCode === LEFT) {
+            player1X --;
+        }
+    }
+     if (player1Score === 3 || player2Score === 3) {
+            drawEndScreen();}
+};};
+
+
+var draw = function() {
+    if (currentScene === 0) {
+        drawIntroScreen();
+    } else if (currentScene === 1) {
+        drawGameScreen();
+    } else if (currentScene === 2) {
+        drawEndScreen();
+    }
+};
+
+
+
+
+
+
+
+
+
+
